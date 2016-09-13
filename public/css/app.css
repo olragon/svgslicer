@@ -1,0 +1,26 @@
+.upload-container {
+  width: 100%;
+  height: 300px;
+  border: 1px dashed #cacaca;
+  text-align: center;
+}
+
+#toolbar {
+  position: fixed;
+  right: 10px;
+  bottom: 0;
+  height: 30px;
+}
+
+.result-list {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+
+.result-item {
+  padding: 5px;
+  border: 1px solid #e8e8e8;
+  width: 64px;
+  overflow: hidden;
+}

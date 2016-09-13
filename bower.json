@@ -1,0 +1,23 @@
+{
+  "name": "svgslicer",
+  "description": "",
+  "main": "main.js",
+  "authors": [
+    "Long Nguyen <olragon@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "^4.2.3",
+    "lodash": "^4.15.0",
+    "jquery": "1.12.4"
+  }
+}

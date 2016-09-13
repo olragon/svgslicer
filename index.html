@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SVG Slicer</title>
+    <link href="public/css/app.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>SVG Slicer</h1>
+
+    <main>
+      <div class="upload-container">
+        Drag and drop SVG image here
+      </div>
+
+      <div class="image-container"></div>
+
+      <hr>
+
+      <div class="result-container"></div>
+    </main>
+
+    <div id="toolbar">
+      <button id="btn-download" disabled="disabled">Save all</button>
+      <button id="btn-reset">Reset</button>
+    </div>
+
+
+    <footer>
+      <small>
+        We are using node <script>document.write(process.versions.node)</script>,
+        Chrome <script>document.write(process.versions.chrome)</script>,
+        and Electron <script>document.write(process.versions.electron)</script>.
+
+        <a href="#" onclick="history.go(-1)">Back</a>
+      </small>
+    </footer>
+
+    <script src="./public/js/requires.js" type="text/javascript"></script>
+    <script src="./public/js/vendor/random-color.d3.js" type="text/javascript"></script>
+    <script src="./public/js/vendor/jquery.blockUI.js" type="text/javascript"></script>
+    <script src="./public/js/app.js" type="text/javascript"></script>
+  </body>
+</html>
