@@ -143,14 +143,32 @@ $root.on('app:files:displayed', function (evt, data) {
         return this.parentNode.parentNode.nodeName === 'svg';
       });
     }
-    groups.selectAll('*:last-child')
-      .attr('opacity', .3)
-      .attr('fill', randomColor)
-      .attr('class', '');
+
     files[index].slices = [];
     files[index].images = [];
     groups.each(function () {
       var text = [];
+
+      // calculate bigest shape to fill color
+      var maxSize = 0;
+      var el = null;
+
+      d3.select(this).selectAll('*:not(text):not(tspan)').each(function () {
+        var bbox = this.getBBox();
+        var size = bbox.width + bbox.height;
+        if (size > maxSize) {
+          maxSize = size;
+          el = this;
+        }
+      });
+
+      if (el) {
+        d3.select(el)
+          .attr('opacity', .3)
+          .attr('fill', randomColor)
+          .attr('class', '');
+      }
+
       d3.select(this).selectAll('text').each(function () {
         text.push(d3.select(this).text());
       });
