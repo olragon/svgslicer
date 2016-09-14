@@ -45,7 +45,11 @@ $btnDownload.click(function () {
       canvas.getContext('2d').drawImage(img, 0, 0);
       // canvas.height = this.naturalHeight;
       var img = canvas.toDataURL("image/png").replace(/^data:image\/png;base64,/, "");
-      fs.writeFile(path.join(dir, index + '.png'), img, 'base64', callback);
+      var fileName = index + '.png';
+      if ($img.data('text') && $img.data('text').trim()) {
+        fileName = $img.data('text').replace(/[^a-zA-Z0-9_-]/g, '_') + '.png';
+      }
+      fs.writeFile(path.join(dir, fileName), img, 'base64', callback);
     }, function (err) {
       $.unblockUI();
       if (err) { alert('ERROR: ' + err); }
@@ -133,15 +137,27 @@ $root.on('app:files:displayed', function (evt, data) {
     var groups = d3.select(file.$svg.get(0)).selectAll('g').filter(function (d, i) {
       return this.parentNode.nodeName === 'svg';
     });
+
+    if (groups.size() <= 1) {
+      groups = d3.select(file.$svg.get(0)).selectAll('g').filter(function (d, i) {
+        return this.parentNode.parentNode.nodeName === 'svg';
+      });
+    }
     groups.selectAll('*:last-child')
       .attr('opacity', .3)
-      .attr('fill', randomColor);
+      .attr('fill', randomColor)
+      .attr('class', '');
     files[index].slices = [];
     files[index].images = [];
     groups.each(function () {
+      var text = [];
+      d3.select(this).selectAll('text').each(function () {
+        text.push(d3.select(this).text());
+      });
       files[index].slices.push({
         innerHTML: this.innerHTML,
-        bbox: this.getBBox()
+        bbox: this.getBBox(),
+        text: text.sort().join(' ')
       });
     });
   });
@@ -196,7 +212,15 @@ $root.on('app:files:pngGenerated', function (evt, data) {
     <% _.forEach(images, function (img, index) { %>
       <div class="result-item">
         <span><%- index+1 %></span>
-        <span><img data-width="<%- slices[index].bbox.width %>" data-height="<%- slices[index].bbox.height %>" style="width: 64px; height: auto;" src="<%- img %>"></span>
+        <span>
+          <img
+          data-text="<%- slices[index].text %>"
+          data-width="<%- slices[index].bbox.width %>"
+          data-height="<%- slices[index].bbox.height %>"
+          style="width: 64px; height: auto;"
+          src="<%- img %>">
+        </span>
+        <span style="font-size: 8px;"><%- slices[index].text %></span>
       </div>
     <% }); %>
     </div>
