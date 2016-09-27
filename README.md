@@ -5,8 +5,8 @@ SVG Slicer
 
 ## Features
 
-- [x] Slice SVG image to multi small images by top <g>
-- [x] Fill random color to sliced images
+- [x] Slice SVG image to small images by group `<svg><g class="group-1"></g><g class="group-2"></g></svg>`
+- [x] Fill random color to sliced images: detect largest bounding shape in group and fill with random color
 - [x] Save sliced images to png
 
 ## DEV
